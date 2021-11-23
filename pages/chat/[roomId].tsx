@@ -8,7 +8,8 @@ import Button from "../../components/UI/Button";
 const ChatRoom: NextPage = () => {
   const [socket, _] = useState(() => io());
   const router = useRouter();
-  const roomId = router.query["roomId"];
+  const {roomId, username } = router.query;
+
 
   useEffect(() => {
     if (!roomId) {
@@ -25,7 +26,7 @@ const ChatRoom: NextPage = () => {
   }, [roomId]);
 
   const buttonClick = () => {
-    socket.emit("message", { message: "test!", roomId, username: "demo1" });
+    socket.emit("message", { message: "test!", roomId, username });
   };
 
   return (

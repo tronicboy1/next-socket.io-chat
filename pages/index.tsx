@@ -12,7 +12,7 @@ const Home: NextPage = () => {
   const onSubmit = (username: string, roomName: string) => {
     context.setUsername(username);
     context.setRoomId(roomName);
-    router.push(`/chat/${roomName}`);
+    router.push({ pathname: `/chat/${roomName}`, query: { username }} );
   };
   
   return (

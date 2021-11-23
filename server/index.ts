@@ -3,6 +3,7 @@ import { Server as nextServer, createServer } from "http";
 import next, { NextApiHandler, NextApiRequest } from "next";
 import { Server as socketioServer, Socket } from "socket.io";
 import express, { Express, Request, Response } from "express";
+import idGenerator from "../helpers/id-generator";
 
 const port = parseInt(process.env.PORT || "3000", 10);
 const dev = process.env.NODE_ENV !== "production";
@@ -30,6 +31,7 @@ app.prepare().then(async () => {
       io.to(data.roomId).emit("message", {
         message: data.message,
         username: data.username,
+        id: `${data.username}-${idGenerator()}`
       });
     });
   });

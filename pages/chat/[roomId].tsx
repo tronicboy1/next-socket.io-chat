@@ -19,16 +19,13 @@ const ChatRoom: NextPage = () => {
       console.log("socket connected");
       socket.emit("join", roomId);
     }),
-    socket.on("status", (data) => {
-      console.log(data);
-    })
-    socket.on("message", (data) => {
-      console.log(data);
-    })
+      socket.on("message", (data) => {
+        console.log(data);
+      });
   }, [roomId]);
 
   const buttonClick = () => {
-    socket.emit("message", { message: "test!", roomId })
+    socket.emit("message", { message: "test!", roomId, username: "demo1" });
   };
 
   return (

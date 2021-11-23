@@ -27,7 +27,10 @@ app.prepare().then(async () => {
     });
     socket.on("message", (data) => {
       console.log(data);
-      io.to(data.roomId).emit("message", data.message);
+      io.to(data.roomId).emit("message", {
+        message: data.message,
+        username: data.username,
+      });
     });
   });
 

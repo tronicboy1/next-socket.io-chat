@@ -1,5 +1,4 @@
-import { Server as nextServer, createServer } from "http";
-//import { parse } from 'url'
+import { Server, createServer } from "http";
 import next, { NextApiHandler, NextApiRequest } from "next";
 import { Server as socketioServer, Socket } from "socket.io";
 import express, { Express, Request, Response } from "express";
@@ -12,7 +11,7 @@ const handle: NextApiHandler = app.getRequestHandler();
 
 app.prepare().then(async () => {
   const expressApp: Express = express();
-  const server: nextServer = createServer(expressApp);
+  const server: Server = createServer(expressApp);
   const io: socketioServer = new socketioServer();
 
   io.attach(server);
@@ -27,7 +26,6 @@ app.prepare().then(async () => {
       console.log("joined room!");
     });
     socket.on("message", (data) => {
-      console.log(data);
       io.to(data.roomId).emit("message", {
         message: data.message,
         username: data.username,
@@ -38,11 +36,4 @@ app.prepare().then(async () => {
 
   expressApp.all("*", (req: NextApiRequest, res: any) => handle(req, res));
   server.listen(port);
-
-  // tslint:disable-next-line:no-console
-  console.log(
-    `> Server listening at http://localhost:${port} as ${
-      dev ? "development" : process.env.NODE_ENV
-    }`
-  );
 });

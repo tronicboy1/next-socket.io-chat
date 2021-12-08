@@ -9,6 +9,7 @@ import MessageModel from "models/message-model";
 import ChatInput from "components/Chat/ChatInput";
 
 const ChatRoom: NextPage = () => {
+  // @ts-ignore
   const [socket, _] = useState(() => io());
   const router = useRouter();
   const { roomId, username } = router.query;

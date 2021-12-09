@@ -1,4 +1,6 @@
-FROM node:16.13.1 as build
+FROM node:alpine as build
+RUN apk add --no-cache libc6-compat
+
 WORKDIR /app
 COPY . /app
 
@@ -6,7 +8,7 @@ COPY . /app
 RUN npm install
 RUN npm run build
 
-FROM node:16.13.1 AS runner
+FROM node:alpine AS runner
 WORKDIR /app
 
 COPY --from=build --chown=nextjs:nodejs /app/.next ./.next

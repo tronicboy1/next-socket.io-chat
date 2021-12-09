@@ -1,11 +1,13 @@
 FROM node:alpine as build
 RUN apk add --no-cache libc6-compat
-
 WORKDIR /app
-COPY . /app
 
-#run build and install before declaring env var, avoid typescript not being installed
+#run npm install first to optimize
+COPY package.json /app
 RUN npm install
+
+COPY . /app
+#run build and install before declaring env var, avoid typescript not being installed
 RUN npm run build
 
 FROM node:alpine AS runner

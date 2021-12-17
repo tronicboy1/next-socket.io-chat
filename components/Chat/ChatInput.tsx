@@ -12,6 +12,7 @@ const ChatInput: React.FC<{ sendMessage: (content: string) => void }> = ({ sendM
       const content = contentRef.current.value.trim();
       if (content) {
         sendMessage(content);
+        contentRef.current.value = "";
       }
     }
   };

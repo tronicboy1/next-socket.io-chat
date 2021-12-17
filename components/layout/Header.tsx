@@ -12,7 +12,6 @@ const Header: React.FC = () => {
           <li>
             <Link href="/">Home</Link>
           </li>
-          <li>Disabled</li>
         </ul>
       </nav>
     </header>
